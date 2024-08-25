@@ -1,4 +1,6 @@
 import React, { useState, useMemo } from 'react';
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 const districts = {
   Namakal: [
@@ -93,62 +95,69 @@ function App() {
 
   const selectedPlaceData = districts[selectedDistrict]?.find(place => place.motherVillage === selectedPlace);
 
-  const headerText = selectedPlace ? `${selectedPlace} Branch` : '';
+  const headerText = selectedDistrict ? `${selectedDistrict}` : '';
 
   return (
-    <div>
-      <h1>{headerText}</h1>
-      <div>
-        <label>
-          District:
-          <select value={selectedDistrict} onChange={handleDistrictChange}>
+    <div className='mx-5 my-2 viewDiv'>
+     <p className="h1 text-center  mt-2 mb-3">{headerText} District</p><div>
+     <div className="row mb-5" id="filters">
+     <div className="col-lg-2 my-2">
+        <label className="me-sm-2  mb-2">
+          District:</label>
+          <select value={selectedDistrict} onChange={handleDistrictChange} className="form-select">
             <option value="">Select District</option>
             {Object.keys(districts).map(district => (
               <option key={district} value={district}>{district}</option>
             ))}
-          </select>
-        </label>
-        <label>
-          Sub-Division:
-          <select value={selectedPlace} onChange={handlePlaceChange}>
+          </select></div>
+          <div className="col-lg-2 my-2">
+
+        <label className="me-sm-2  mb-2">
+          Sub-Division: </label>
+          <select value={selectedPlace} onChange={handlePlaceChange} className="form-select">
             <option value="">Select Place</option>
             {districts[selectedDistrict]?.map(place => (
               <option key={place.motherVillage} value={place.motherVillage}>{place.motherVillage}</option>
             ))}
-          </select>
-        </label>
-        <label>
-          Police Station:
-          <select value={selectedPoliceStation} onChange={handlePoliceStationChange}>
+          </select></div>
+          <div className="col-lg-3 my-2">
+        <label className="me-sm-2  mb-2">
+          Police Station:</label>
+          <select value={selectedPoliceStation} onChange={handlePoliceStationChange} className="form-select">
             <option value="">Select Police Station</option>
             {selectedPlaceData?.hamletVillage.map(subPlace => (
               <option key={subPlace} value={subPlace}>{subPlace}</option>
             ))}
           </select>
-        </label>
-        <label>
-          Type:
-          <select value={typeFilter} onChange={handleTypeFilter}>
+        </div>
+        <div className="col-lg-1 my-2">
+        <label className="me-sm-2  mb-2">
+          Type:</label>
+          <select value={typeFilter} onChange={handleTypeFilter} className="form-select">
             <option value="all">All</option>
             <option value="Public">Public</option>
             <option value="Private">Private</option>
             <option value="Organisation">Organisation</option>
           </select>
-        </label>
-        <label>
-          Status:
-          <select value={statusFilter} onChange={handleStatusFilter}>
+        </div>
+        <div className="col-lg-2 my-2">
+        <label className="me-sm-2  mb-2">
+          Status:</label>
+          <select value={statusFilter} onChange={handleStatusFilter} className="form-select">
             <option value="all">All</option>
             <option value="COMPLETE">Complete</option>
             <option value="INCOMPLETE">Incomplete</option>
           </select>
-        </label>
-        <label>
-          Date:
-          <input type="date" value={selectedDate} onChange={handleDateChange} />
-        </label>
-      </div>
-      <table>
+        </div>
+        <div className="col-lg-2 my-2">
+        <label className="me-sm-2  mb-2">
+          Date:</label>
+          <input type="date" value={selectedDate} onChange={handleDateChange}className="form-control"/>
+        </div>
+      </div></div>
+
+      <div className="table-responsive-lg">
+      <table className="table table-light table-striped table-hover">
         <thead>
           <tr>
             <th onClick={() => handleSort('id')}>ID</th>
@@ -173,7 +182,7 @@ function App() {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table></div>
     </div>
   );
 }
